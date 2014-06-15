@@ -18,11 +18,11 @@ var HookCommand = cli.Command{
     }
     target := args[0]
 
-    shell := shell.DetechShell(target)
-    if shell == nil {
+    current_shell := shell.DetechShell(target)
+    if current_shell == nil {
       fmt.Errorf("Unknown shell <%s>", target)
     }
 
-    fmt.Println(shell.Hook())
+    fmt.Println(current_shell.Hook())
   },
 }
