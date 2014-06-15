@@ -15,14 +15,16 @@ var LoadCommand = cli.Command{
   Action: func(c *cli.Context) {
     args := c.Args()
     var current_path string
+
     if len(args) > 0 {
       current_path = args[0]
     } else {
       current_path, _ = os.Getwd()
     }
+
     current_path = ExpandPath(current_path)
-    config_path := path.Join(current_path, ".denv")
-    app_config, err := config.LoadConfig(config_path)
+
+    app_config, err := config.LoadConfig(path.Join(current_path, ".denv"))
     if err != nil {
       fmt.Printf("Error: %s", err)
       return
