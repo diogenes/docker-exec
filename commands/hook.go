@@ -3,7 +3,7 @@ package commands
 import (
   "fmt"
 
-  "../shell"
+  //"../shell"
   "github.com/codegangsta/cli"
 )
 
@@ -12,17 +12,12 @@ var HookCommand = cli.Command{
   Usage: "direnv hook <shell_name>",
   Action: func(c *cli.Context) {
     args := c.Args()
-    if len(args) == 0 {
-      fmt.Println("Unknown shell")
+    current_shell, shell_err := CurrentShell(args)
+    if shell_err != nil {
+      fmt.Println(shell_err)
       return
     }
-    target := args[0]
 
-    current_shell := shell.DetechShell(target)
-    if current_shell == nil {
-      fmt.Errorf("Unknown shell <%s>", target)
-    }
-
-    fmt.Println(current_shell.Hook())
+    fmt.Println((*current_shell).Hook())
   },
 }
