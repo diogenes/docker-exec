@@ -1,9 +1,9 @@
-package main
+package config
 
 import "testing"
 
 func TestLoadConfig(t *testing.T) {
-  config, err := LoadConfig("./test/.denv.yml")
+  config, err := LoadConfig("../test/.denv.yml")
   if err != nil {
     t.Error(err)
   }
