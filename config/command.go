@@ -1,5 +1,10 @@
 package config
 
+import (
+  "bytes"
+  "fmt"
+)
+
 type Command struct {
   Name      string
   Prepend   string
@@ -9,23 +14,22 @@ type Command struct {
 }
 
 func (c Command) Command() string {
-  cmd := c.Name
+  cmd := bytes.NewBufferString("")
   if c.Prepend != "" {
-    cmd = c.Prepend + " " + cmd
+    cmd.WriteString(c.Prepend)
   }
+  cmd.WriteString(fmt.Sprintf(" %s", c.Name))
 
-  docker_cli := "docker run -it --rm"
+  docker_cli := bytes.NewBufferString("docker run -it --rm")
   if c.Args != "" {
-    docker_cli = docker_cli + " " + c.Args
+    docker_cli.WriteString(fmt.Sprintf(" %s", c.Args))
   }
 
   if c.Directory != "" {
-    docker_cli = docker_cli + " -w " + c.Directory
+    docker_cli.WriteString(fmt.Sprintf(" -w %s", c.Directory))
   }
 
-  if c.Image != "" {
-    docker_cli = docker_cli + " " + c.Image
-  }
+  docker_cli.WriteString(fmt.Sprintf(" %s", c.Image))
 
-  return docker_cli + " " + cmd
+  return fmt.Sprintf("%s %s", docker_cli, cmd)
 }
