@@ -1,8 +1,12 @@
 package main
 
-import "github.com/codegangsta/cli"
+import (
+  "./commands"
+  "github.com/codegangsta/cli"
+)
 
-func Commands() []cli.Command {
-	return nil
-	//[]cli.Command{}
+func CommandsCollection() []cli.Command {
+  return []cli.Command{
+    commands.HookCommand,
+  }
 }
