@@ -16,9 +16,9 @@ type Command struct {
 func (c Command) Command() string {
   cmd := bytes.NewBufferString("")
   if c.Prepend != "" {
-    cmd.WriteString(c.Prepend)
+    cmd.WriteString(fmt.Sprintf("%s ", c.Prepend))
   }
-  cmd.WriteString(fmt.Sprintf(" %s", c.Name))
+  cmd.WriteString(fmt.Sprintf("%s", c.Name))
 
   docker_cli := bytes.NewBufferString("docker run -it --rm")
   if c.Args != "" {
