@@ -14,16 +14,20 @@ type Env struct {
 func (e Env) Load() error {
   for k, v := range e.Commands {
     alias_string := e.Shell.Alias(k, v.Command())
-    fmt.Println(alias_string)
-    //e.Run(alias_string)
+    e.Run(alias_string)
   }
   return nil
 }
 
-func (e Env) Uload() error {
+func (e Env) Unload() error {
   for k, _ := range e.Commands {
     unalias_string := e.Shell.Unalias(k)
-    fmt.Println(unalias_string)
+    e.Run(unalias_string)
   }
+  return nil
+}
+
+func (e Env) Run(cmd string) error {
+  fmt.Println(cmd)
   return nil
 }

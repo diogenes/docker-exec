@@ -14,13 +14,13 @@ func (c Command) Command() string {
     cmd = c.Prepend + " " + cmd
   }
 
-  if c.Directory != "" {
-    cmd = "cd " + c.Directory + " && " + cmd
-  }
-
   docker_cli := "docker run -it --rm"
   if c.Args != "" {
     docker_cli = docker_cli + " " + c.Args
+  }
+
+  if c.Directory != "" {
+    docker_cli = docker_cli + " -w " + c.Directory
   }
 
   if c.Image != "" {
