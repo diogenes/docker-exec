@@ -1,0 +1,10 @@
+commands:
+  capistrano:
+    prepend: "bundle exec"
+    directory: "/vagrant"
+    image: "ruby"
+    args: "--rm -v /vagrant:/vagrant"
+  go:
+    directory: "/godir"
+    image: "golang"
+    args: "--rm"

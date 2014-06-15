@@ -8,7 +8,5 @@ import (
 func CommandsCollection() []cli.Command {
   return []cli.Command{
     commands.HookCommand,
-    commands.LoadCommand,
-    commands.UnloadCommand,
   }
 }

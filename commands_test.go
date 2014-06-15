@@ -11,7 +11,7 @@ func TestCommandsList(t *testing.T) {
 
 func TestCommandsNames(t *testing.T) {
   commands := CommandsCollection()
-  original_names := []string{"hook", "load", "unload"}
+  original_names := []string{"hook"}
   expected_names := make([]string, len(commands))
   for i, command := range commands {
     expected_names[i] = command.Name
