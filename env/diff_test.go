@@ -7,21 +7,21 @@ import (
 )
 
 func TestToShell(t *testing.T) {
-  storage := Diff{make(map[string]string), make(map[string]string)}
-  storage.Prev["a"] = "a_alias"
-  storage.Prev["b"] = "b_alias"
-  storage.Prev["c"] = "c_alias"
+  diff := Diff{make(map[string]string), make(map[string]string)}
+  diff.Prev["a"] = "a_alias"
+  diff.Prev["b"] = "b_alias"
+  diff.Prev["c"] = "c_alias"
 
-  storage.Next["c"] = "c_alias"
-  storage.Next["d"] = "d_alias"
-  storage.Next["e"] = "e_alias"
+  diff.Next["c"] = "c_alias"
+  diff.Next["d"] = "d_alias"
+  diff.Next["e"] = "e_alias"
 
   shell_string := `unalias a;
 unalias b;
 alias c="c_alias";
 alias d="d_alias";
 alias e="e_alias";`
-  storage_string := storage.ToShell(shell.BASH)
+  storage_string := diff.ToShell(shell.BASH)
 
   if shell_string != storage_string {
     t.Errorf("Unexpected string\n-e: %s\n-o:%s", storage_string, shell_string)
