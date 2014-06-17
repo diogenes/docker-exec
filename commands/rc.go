@@ -18,7 +18,7 @@ var RcCommand = cli.Command{
     if err != nil {
       next_config = &config.Config{}
     }
-    prev_config, err := env.SessionConfig()
+    prev_config, err := config.SessionConfig()
     if err != nil {
       prev_config = &config.Config{}
     }

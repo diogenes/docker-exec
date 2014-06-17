@@ -1,11 +1,13 @@
 package shell
 
 import (
+  "../config"
   "path/filepath"
 )
 
 type Shell interface {
   Hook() string
+  Denv(current_config *config.Config) string
   Alias(key, value string) string
   Unalias(key string) string
 }

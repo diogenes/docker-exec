@@ -1,12 +1,11 @@
-package env
+package config
 
 import (
-  "../config"
   "errors"
   "os"
 )
 
-func SessionConfig() (*config.Config, error) {
+func SessionConfig() (*Config, error) {
   dumped := os.Getenv("_DENV")
   if dumped == "" {
     return nil, errors.New("empty session")
@@ -14,13 +13,13 @@ func SessionConfig() (*config.Config, error) {
   return LoadBase64String(dumped), nil
 }
 
-func LoadBase64String(serialized_string string) *config.Config {
-  config := config.Config{}
+func LoadBase64String(serialized_string string) *Config {
+  config := Config{}
   unmarshal(serialized_string, &config)
   return &config
 }
 
-func StoreSession(c *config.Config) string {
+func StoreSession(c *Config) string {
   base_64_string := marshal(c)
   return base_64_string
 }

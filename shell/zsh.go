@@ -1,5 +1,9 @@
 package shell
 
+import (
+  "../config"
+)
+
 type zsh int
 
 var ZSH zsh
@@ -16,6 +20,10 @@ fi
 
 func (z zsh) Hook() string {
   return ZSH_HOOK
+}
+
+func (z zsh) Denv(current_config *config.Config) string {
+  return ""
 }
 
 func (z zsh) Alias(key, value string) string {

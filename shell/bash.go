@@ -1,5 +1,9 @@
 package shell
 
+import (
+  "../config"
+)
+
 type bash int
 
 var BASH bash
@@ -15,6 +19,10 @@ fi
 
 func (b bash) Hook() string {
   return BASH_HOOK
+}
+
+func (b bash) Denv(current_config *config.Config) string {
+  return ""
 }
 
 func (b bash) Alias(key, value string) string {
