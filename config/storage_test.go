@@ -7,7 +7,7 @@ import (
 
 func TestSessionConfig(t *testing.T) {
   original_config, _ := LoadConfig("../test/envc1.yml")
-  dumped_string := StoreSession(original_config)
+  dumped_string := original_config.StoreSession()
   os.Setenv("_DENV", dumped_string)
   expected_config, _ := SessionConfig()
 
@@ -24,5 +24,7 @@ func TestStoreSession(t *testing.T) {
   if err != nil {
     t.Error(err)
   }
-  StoreSession(c1)
+  if c1.StoreSession() == "" {
+    t.Error("Empty existing config... should be present!")
+  }
 }

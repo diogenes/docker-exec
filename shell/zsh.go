@@ -23,7 +23,7 @@ func (z zsh) Hook() string {
 }
 
 func (z zsh) Denv(current_config *config.Config) string {
-  return ""
+  return "export _DENV=" + current_config.StoreSession()
 }
 
 func (z zsh) Alias(key, value string) string {

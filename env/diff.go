@@ -7,12 +7,16 @@ import (
 )
 
 type Diff struct {
-  Prev map[string]string
-  Next map[string]string
+  Prev          map[string]string
+  Next          map[string]string
+  CurrentConfig *config.Config
 }
 
-func LoadDiff(c1, c2 map[string]*config.Command) *Diff {
-  storage := &Diff{make(map[string]string), make(map[string]string)}
+func LoadDiff(prev_conf, next_conf *config.Config) *Diff {
+  storage := &Diff{make(map[string]string), make(map[string]string), next_conf}
+
+  c1 := prev_conf.Commands
+  c2 := next_conf.Commands
 
   in := func(key string, e map[string]*config.Command) bool {
     _, ok := e[key]
@@ -45,6 +49,10 @@ func (self Diff) ToShell(sh shell.Shell) string {
 
   for key, value := range self.Next {
     str = append(str, sh.Alias(key, value))
+  }
+
+  if self.CurrentConfig != nil {
+    str = append(str, sh.Denv(self.CurrentConfig))
   }
 
   return strings.Join(str, "\n")

@@ -18,8 +18,3 @@ func LoadBase64String(serialized_string string) *Config {
   unmarshal(serialized_string, &config)
   return &config
 }
-
-func StoreSession(c *Config) string {
-  base_64_string := marshal(c)
-  return base_64_string
-}

@@ -23,7 +23,7 @@ var RcCommand = cli.Command{
       prev_config = &config.Config{}
     }
 
-    diff := env.LoadDiff(prev_config.Commands, next_config.Commands)
+    diff := env.LoadDiff(prev_config, next_config)
     if diff == nil {
       return
     }

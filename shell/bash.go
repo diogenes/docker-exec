@@ -22,7 +22,7 @@ func (b bash) Hook() string {
 }
 
 func (b bash) Denv(current_config *config.Config) string {
-  return ""
+  return "export _DENV=" + current_config.StoreSession()
 }
 
 func (b bash) Alias(key, value string) string {

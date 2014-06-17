@@ -11,6 +11,10 @@ type Config struct {
   Commands map[string]*Command
 }
 
+func (c Config) StoreSession() string {
+  return marshal(c)
+}
+
 func LoadConfig(path string) (config *Config, err error) {
   config = &Config{
     path: path,
