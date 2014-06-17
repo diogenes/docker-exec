@@ -1,8 +1,8 @@
 package env
 
 import (
-  "../config"
-  "../shell"
+  "github.com/openit-lib/docker-exec/config"
+  "github.com/openit-lib/docker-exec/shell"
   "strings"
 )
 

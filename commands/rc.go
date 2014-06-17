@@ -3,9 +3,9 @@ package commands
 import (
   "fmt"
 
-  "../config"
-  "../env"
   "github.com/codegangsta/cli"
+  "github.com/openit-lib/docker-exec/config"
+  "github.com/openit-lib/docker-exec/env"
 )
 
 var RcCommand = cli.Command{

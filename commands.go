@@ -1,8 +1,8 @@
 package main
 
 import (
-  "./commands"
   "github.com/codegangsta/cli"
+  "github.com/openit-lib/docker-exec/commands"
 )
 
 func CommandsCollection() []cli.Command {

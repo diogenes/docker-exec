@@ -1,7 +1,7 @@
 package shell
 
 import (
-  "../config"
+  "github.com/openit-lib/docker-exec/config"
   "path/filepath"
 )
 

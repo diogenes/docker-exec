@@ -1,10 +1,10 @@
 package commands
 
 import (
-  "../config"
-  "../shell"
   "errors"
   "fmt"
+  "github.com/openit-lib/docker-exec/config"
+  "github.com/openit-lib/docker-exec/shell"
   "os"
   "path"
 
