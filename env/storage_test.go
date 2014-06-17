@@ -10,7 +10,7 @@ func TestSessionConfig(t *testing.T) {
   original_config, _ := config.LoadConfig("../test/envc1.yml")
   dumped_string := StoreSession(original_config)
   os.Setenv("_DENV", dumped_string)
-  expected_config := SessionConfig()
+  expected_config, _ := SessionConfig()
 
   for key, v := range original_config.Commands {
     if expected_config.Commands[key].Name != v.Name {

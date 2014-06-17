@@ -2,15 +2,16 @@ package env
 
 import (
   "../config"
+  "errors"
   "os"
 )
 
-func SessionConfig() *config.Config {
+func SessionConfig() (*config.Config, error) {
   dumped := os.Getenv("_DENV")
   if dumped == "" {
-    return nil
+    return nil, errors.New("empty session")
   }
-  return LoadBase64String(dumped)
+  return LoadBase64String(dumped), nil
 }
 
 func LoadBase64String(serialized_string string) *config.Config {

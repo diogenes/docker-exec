@@ -6,7 +6,7 @@ var BASH bash
 
 const BASH_HOOK = `
 _docker_exec_hook() {
-  eval "$(docker-exec alias bash)";
+  eval "$(docker-exec rc bash)";
 };
 if ! [[ "$PROMPT_COMMAND" =~ _docker_exec_hook ]]; then
   PROMPT_COMMAND="_docker_exec_hook;$PROMPT_COMMAND";

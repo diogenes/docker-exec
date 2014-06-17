@@ -6,7 +6,7 @@ var ZSH zsh
 
 const ZSH_HOOK = `
 _docker_exec_hook() {
-  eval "$(docker-exec export zsh)";
+  eval "$(docker-exec rc zsh)";
 }
 typeset -a precmd_functions
 if [[ -z $precmd_functions[(r)_docker_exec_hook] ]]; then
