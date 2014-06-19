@@ -78,5 +78,22 @@ rake='docker run -it --rm --rm -v /vagrant:/vagrant -w /vagrant ruby bundle exec
 rspec='docker run -it --rm --rm -v /vagrant:/vagrant -w /vagrant ruby bundle exec rspec'
 ```
 
+Now you can run `npm --version`, `npm` runs inside new container and cleanup atfer run.
+
 Go to another direcotry and repeat `alias | grep docker`.
 You'll see that they're gone. That's right, there are only aliases in the directory in which a file `.denv` present.
+
+## Contribute
+
+Bug reports, contributions and forks are welcome.
+
+All bugs or other forms of discussion happen on
+<https://github.com/openit-lib/docker-exec/issues>
+
+I express my special thanks to project [Direnv](https://github.com/zimbatm/direnv) for the idea, which I learned from their code.
+
+## COPYRIGHT
+
+Copyright (C) 2014 shared by all
+[contributors](https://github.com/openit-lib/docker-exec/graphs/contributors) under
+the MIT licence.
