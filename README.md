@@ -16,7 +16,7 @@ Repeat this several times with different parameters. Still not tired?
 
 Docker-exec allows you to automatically generate aliases for the necessary commands that you run in containers. For example:
 ```bash
-export alias node=docker run --rm -it --volumes-from data_container -p 8080:8080 -v /vagrant:/vagrant ubuntu node
+alias node=docker run --rm -it --volumes-from data_container -p 8080:8080 -v /vagrant:/vagrant ubuntu node
 $ [host] > node install bower -g
 ```
 This alias runs `node install bower` inside the docker container and cleanup container after execute.
