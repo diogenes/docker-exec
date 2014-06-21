@@ -19,7 +19,7 @@ func (f fish) Hook() string {
 }
 
 func (f fish) Denv(current_config *config.Config) string {
-	return "export _DENV=" + current_config.StoreSession()
+	return "set -x _DENV=" + current_config.StoreSession()
 }
 
 func (f fish) Alias(key, value string) string {
