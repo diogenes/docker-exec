@@ -1,16 +1,14 @@
 default: build
 
 build: vet
-	go build -v -o ./bin/docker-exec .
+	./build.sh
 
-tests:
+tests: vet
 	go test ./...
 
 deps:
-	@( \
-		go get github.com/codegangsta/cli; \
-		go get launchpad.net/goyaml; \
-	)
+	go get code.google.com/p/go.tools/cmd/vet
+	go get ./...
 
-vet:
+vet: deps
 	go vet ./...
