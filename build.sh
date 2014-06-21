@@ -13,4 +13,8 @@ for PLATFORM in $PLATFORMS; do
   CMD="go build -o ${RELEASE_PATH}/docker-exec ."
   echo "GOOS=${GOOS} GOARCH=${GOARCH} $CMD"
   $CMD
+	PACKAGE="tar -czvf release/${GOOS}-${GOARCH}.tar.gz ${RELEASE_PATH}"
+	$PACKAGE
+	CLEANUP="rm -rf ${RELEASE_PATH}"
+	$CLEANUP
 done
