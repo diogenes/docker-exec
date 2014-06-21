@@ -50,6 +50,12 @@ Add the following line at the end of your "~/.zshrc" file:
 
 `eval "$(docker-exec hook zsh)"`
 
+### Fish
+Add the following line at the end of your "~/.config/fish/config.fish" file:
+
+`eval (docker-exec hook fish)`
+
+
 ## Usage
 
 In target directory create ".denv" file and add some command defenitions:

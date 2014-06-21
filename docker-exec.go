@@ -1,16 +1,16 @@
 package main
 
 import (
-  "os"
+	"os"
 
-  "github.com/codegangsta/cli"
+	"github.com/codegangsta/cli"
 )
 
 func main() {
-  app := cli.NewApp()
-  app.Name = "Docker Exec"
-  app.Author = "Alexander Kirillov"
-  app.Commands = CommandsCollection()
-  app.Version = "0.1.0"
-  app.Run(os.Args)
+	app := cli.NewApp()
+	app.Name = "Docker Exec"
+	app.Author = "Alexander Kirillov"
+	app.Commands = CommandsCollection()
+	app.Version = "0.1.1"
+	app.Run(os.Args)
 }
