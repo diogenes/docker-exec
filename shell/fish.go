@@ -9,7 +9,7 @@ type fish int
 var FISH fish
 
 const FISH_HOOK = `
-function __docker_exec_hook --on-event fish_prompt;
+function docker_exec_eval --on-event fish_prompt;
 	eval (docker-exec rc fish);
 end
 `
@@ -19,7 +19,7 @@ func (f fish) Hook() string {
 }
 
 func (f fish) Denv(current_config *config.Config) string {
-	return "set -x _DENV " + current_config.StoreSession()
+	return "set -x -g _DENV " + current_config.StoreSession()
 }
 
 func (f fish) Alias(key, value string) string {
