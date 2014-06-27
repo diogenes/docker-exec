@@ -1,35 +1,41 @@
 package config
 
 import (
-  "bytes"
-  "fmt"
+	"bytes"
+	"fmt"
 )
 
 type Command struct {
-  Name      string
-  Prepend   string
-  Directory string
-  Image     string
-  Args      string
+	ALias     string
+	Name      string
+	Prepend   string
+	Directory string
+	Image     string
+	Args      string
+	Ports     []string
+	Volumes   []string
+	From      []string
+	Dns       []string
+	Env       map[string]string
 }
 
 func (c Command) Command() string {
-  cmd := bytes.NewBufferString("")
-  if c.Prepend != "" {
-    cmd.WriteString(fmt.Sprintf("%s ", c.Prepend))
-  }
-  cmd.WriteString(fmt.Sprintf("%s", c.Name))
+	cmd := bytes.NewBufferString("")
+	if c.Prepend != "" {
+		cmd.WriteString(fmt.Sprintf("%s ", c.Prepend))
+	}
+	cmd.WriteString(fmt.Sprintf("%s", c.Name))
 
-  docker_cli := bytes.NewBufferString("docker run -it --rm")
-  if c.Args != "" {
-    docker_cli.WriteString(fmt.Sprintf(" %s", c.Args))
-  }
+	docker_cli := bytes.NewBufferString("docker run -it --rm")
+	if c.Args != "" {
+		docker_cli.WriteString(fmt.Sprintf(" %s", c.Args))
+	}
 
-  if c.Directory != "" {
-    docker_cli.WriteString(fmt.Sprintf(" -w %s", c.Directory))
-  }
+	if c.Directory != "" {
+		docker_cli.WriteString(fmt.Sprintf(" -w %s", c.Directory))
+	}
 
-  docker_cli.WriteString(fmt.Sprintf(" %s", c.Image))
+	docker_cli.WriteString(fmt.Sprintf(" %s", c.Image))
 
-  return fmt.Sprintf("%s %s", docker_cli, cmd)
+	return fmt.Sprintf("%s %s", docker_cli, cmd)
 }
