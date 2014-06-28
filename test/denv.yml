@@ -9,6 +9,14 @@ commands:
     <<: *rails_development
   cucumber:
     <<: *rails_development
+    ports:
+      - 8080
+      - 8081
+    link: "postgresql:db"
+    from: "bundles"
+    env:
+      USER: Kirillov
+      RAILS_ENV: test
   guard:
     <<: *rails_development
   rspec:

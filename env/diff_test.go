@@ -3,6 +3,7 @@ package env
 import (
 	"testing"
 
+	"github.com/openit-lib/docker-exec/building"
 	"github.com/openit-lib/docker-exec/config"
 )
 
@@ -24,5 +25,23 @@ func TestLoadDiff(t *testing.T) {
 
 	if len(diff.Prev) == 0 || len(diff.Next) == 0 {
 		t.Error("Diff not fully loaded")
+	}
+}
+
+func TestBuldCommand(t *testing.T) {
+	expected_rails := "docker run --rm -it -v /vagrant -w /vagrant ruby bundle exec rails"
+	expected_cucumber := "docker run --rm -it -p 8080 -p 8081 -v /vagrant --link postgresql:db -w /vagrant -e USER=Kirillov -e RAILS_ENV=test ruby bundle exec cucumber"
+	cnf, err := config.LoadConfig("../test/denv.yml")
+	if err != nil {
+		t.Error(err)
+	}
+	real_rails := building.NewAliasBuilder(cnf.Commands["rails"]).Build()
+	if expected_rails != real_rails {
+		t.Errorf("Unexpected value\n-o:%s\n-e:%s", expected_rails, real_rails)
+	}
+
+	real_cucumber := building.NewAliasBuilder(cnf.Commands["cucumber"]).Build()
+	if expected_cucumber != real_cucumber {
+		t.Errorf("Unexpected value\n-o:%s\n-e:%s", expected_cucumber, real_cucumber)
 	}
 }
