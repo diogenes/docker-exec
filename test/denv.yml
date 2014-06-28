@@ -21,3 +21,6 @@ commands:
     <<: *rails_development
   rspec:
     <<: *rails_development
+  do_bash:
+    cmd: "/bin/bash"
+    image: "ubuntu"

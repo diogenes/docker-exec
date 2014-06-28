@@ -14,8 +14,8 @@ type PartBuilder interface {
 }
 
 type AliasBuilder struct {
-	name, prepend, image, args string
-	builders                   []PartBuilder
+	cmd, name, prepend, image, args string
+	builders                        []PartBuilder
 }
 
 func NewAliasBuilder(command *config.Command) *AliasBuilder {
@@ -30,6 +30,7 @@ func NewAliasBuilder(command *config.Command) *AliasBuilder {
 	}
 
 	return &AliasBuilder{
+		cmd:      command.Cmd,
 		name:     command.Name,
 		prepend:  command.Prepend,
 		image:    command.Image,
@@ -56,13 +57,17 @@ func (self AliasBuilder) buildOptions() string {
 }
 
 func (self AliasBuilder) buildCmd() string {
-	cmd := bytes.NewBufferString("")
+	cmd_line := bytes.NewBufferString("")
 	if self.prepend != "" {
-		cmd.WriteString(fmt.Sprintf("%s ", self.prepend))
+		cmd_line.WriteString(fmt.Sprintf("%s ", self.prepend))
 	}
-	cmd.WriteString(self.name)
+	if self.cmd != "" {
+		cmd_line.WriteString(self.cmd)
+	} else {
+		cmd_line.WriteString(self.name)
+	}
 	if self.args != "" {
-		cmd.WriteString(fmt.Sprintf(" %s", self.args))
+		cmd_line.WriteString(fmt.Sprintf(" %s", self.args))
 	}
-	return cmd.String()
+	return cmd_line.String()
 }

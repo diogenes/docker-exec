@@ -1,8 +1,8 @@
 package config
 
 type Command struct {
-	Alias     string
 	Name      string
+	Cmd       string
 	Prepend   string
 	Directory string
 	Image     string

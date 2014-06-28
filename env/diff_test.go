@@ -45,3 +45,16 @@ func TestBuldCommand(t *testing.T) {
 		t.Errorf("Unexpected value\n-o:%s\n-e:%s", expected_cucumber, real_cucumber)
 	}
 }
+
+func TestBuildWithAlias(t *testing.T) {
+	expected_cmd := "docker run --rm -it ubuntu /bin/bash"
+
+	cnf, err := config.LoadConfig("../test/denv.yml")
+	if err != nil {
+		t.Error(err)
+	}
+	real_cmd := building.NewAliasBuilder(cnf.Commands["do_bash"]).Build()
+	if expected_cmd != real_cmd {
+		t.Errorf("Unexpected value\n-o:%s\n-e:%s", expected_cmd, real_cmd)
+	}
+}
