@@ -3,7 +3,8 @@ commands:
     prepend: "bundle exec"
     directory: "/vagrant"
     image: "ruby"
-    args: "--rm -v /vagrant:/vagrant"
+    volumes:
+      - "/vagrant"
   rake:
     <<: *rails_development
   cucumber:

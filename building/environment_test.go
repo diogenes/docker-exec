@@ -8,7 +8,7 @@ import (
 
 func TestBuildEnvEmpty(t *testing.T) {
 	cmd := config.Command{}
-	env := Environmet{cmd}
+	env := NewEnvironmantBuilder(cmd)
 	if env.IsPresent() {
 		t.Error("Should not be present")
 	}
@@ -19,7 +19,7 @@ func TestBuildEnvSingle(t *testing.T) {
 		"TEST": "value",
 	}
 	cmd := config.Command{Env: env_values}
-	env := Environmet{cmd}
+	env := NewEnvironmantBuilder(cmd)
 	if !env.IsPresent() {
 		t.Error("Should be present")
 	}

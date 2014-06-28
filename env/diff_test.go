@@ -2,6 +2,7 @@ package env
 
 import (
 	"testing"
+
 	"github.com/openit-lib/docker-exec/config"
 )
 
@@ -10,6 +11,7 @@ func TestLoadDiff(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
+
 	c2, err := config.LoadConfig("../test/envc2.yml")
 	if err != nil {
 		t.Error(err)

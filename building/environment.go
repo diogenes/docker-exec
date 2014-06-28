@@ -11,6 +11,10 @@ type Environmet struct {
 	command config.Command
 }
 
+func NewEnvironmantBuilder(command config.Command) Environmet {
+	return Environmet{command}
+}
+
 func (e Environmet) IsPresent() bool {
 	return len(e.command.Env) > 0
 

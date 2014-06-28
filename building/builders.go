@@ -1,6 +1,12 @@
 package building
 
-import "github.com/openit-lib/docker-exec/config"
+import (
+	"bytes"
+	"fmt"
+	"strings"
+
+	"github.com/openit-lib/docker-exec/config"
+)
 
 type PartBuilder interface {
 	Build() string
@@ -8,9 +14,55 @@ type PartBuilder interface {
 }
 
 type AliasBuilder struct {
-	builders []PartBuilder
+	name, prepend, image, args string
+	builders                   []PartBuilder
 }
 
 func NewAliasBuilder(command *config.Command) *AliasBuilder {
-	return nil
+	builders := []PartBuilder{
+		NewListBuilder("-p", command.Ports),
+		NewListBuilder("-v", command.Volumes),
+		NewListBuilder("--from-image", command.From),
+		NewListBuilder("--dns", command.Dns),
+		NewSingleBuilder("--link", command.Link),
+		NewSingleBuilder("-w", command.Directory),
+		NewEnvironmantBuilder(*command),
+	}
+
+	return &AliasBuilder{
+		name:     command.Name,
+		prepend:  command.Prepend,
+		image:    command.Image,
+		args:     command.Args,
+		builders: builders,
+	}
+}
+
+func (self AliasBuilder) Build() string {
+	options := self.buildOptions()
+	cmd := self.buildCmd()
+
+	return fmt.Sprintf("docker run %s %s %s", options, self.image, cmd)
+}
+
+func (self AliasBuilder) buildOptions() string {
+	options := []string{"--rm -it"}
+	for _, builder := range self.builders {
+		if builder.IsPresent() {
+			options = append(options, builder.Build())
+		}
+	}
+	return strings.Join(options, " ")
+}
+
+func (self AliasBuilder) buildCmd() string {
+	cmd := bytes.NewBufferString("")
+	if self.prepend != "" {
+		cmd.WriteString(fmt.Sprintf("%s ", self.prepend))
+	}
+	cmd.WriteString(self.name)
+	if self.args != "" {
+		cmd.WriteString(fmt.Sprintf(" %s", self.args))
+	}
+	return cmd.String()
 }
