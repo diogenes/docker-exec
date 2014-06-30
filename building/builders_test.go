@@ -28,13 +28,13 @@ func TestBuildFull(t *testing.T) {
 		Image:     "ruby",
 		Link:      "postgresql",
 		Args:      "-E production",
+		From:      "bundles",
 		Ports:     []string{"8080", "3000"},
 		Volumes:   []string{"/vagrant:/vagrant"},
-		From:      []string{"bundles"},
 		Dns:       []string{"8.8.8.8"},
 		Env:       map[string]string{"USER": "Kirillov"},
 	}
-	expected_command := "docker run --rm -it -p 8080 -p 3000 -v /vagrant:/vagrant --volumes-from bundles --dns 8.8.8.8 --link postgresql -w /vagrant -e USER=Kirillov ruby bundle exec unicorn -E production"
+	expected_command := "docker run --rm -it -p 8080 -p 3000 -v /vagrant:/vagrant --dns 8.8.8.8 --volumes-from bundles --link postgresql -w /vagrant -e USER=Kirillov ruby bundle exec unicorn -E production"
 	real_command := NewAliasBuilder(&command).Build()
 	if expected_command != real_command {
 		t.Errorf("Unexpected value\n-o:%s\n-e:%s", expected_command, real_command)

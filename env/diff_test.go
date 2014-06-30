@@ -30,7 +30,7 @@ func TestLoadDiff(t *testing.T) {
 
 func TestBuldCommand(t *testing.T) {
 	expected_rails := "docker run --rm -it -v /vagrant -w /vagrant ruby bundle exec rails"
-	expected_cucumber := "docker run --rm -it -p 8080 -p 8081 -v /vagrant --link postgresql:db -w /vagrant -e USER=Kirillov -e RAILS_ENV=test ruby bundle exec cucumber"
+	expected_cucumber := "docker run --rm -it -p 8080 -p 8081 -v /vagrant --volumes-from bundles --link postgresql:db -w /vagrant -e USER=Kirillov -e RAILS_ENV=test ruby bundle exec cucumber"
 	cnf, err := config.LoadConfig("../test/denv.yml")
 	if err != nil {
 		t.Error(err)

@@ -7,10 +7,10 @@ type Command struct {
 	Directory string
 	Image     string
 	Link      string
+	From      string
 	Args      string
 	Ports     []string
 	Volumes   []string
-	From      []string
 	Dns       []string
 	Env       map[string]string
 }

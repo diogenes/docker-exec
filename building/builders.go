@@ -22,8 +22,8 @@ func NewAliasBuilder(command *config.Command) *AliasBuilder {
 	builders := []PartBuilder{
 		NewListBuilder("-p", command.Ports),
 		NewListBuilder("-v", command.Volumes),
-		NewListBuilder("--volumes-from", command.From),
 		NewListBuilder("--dns", command.Dns),
+		NewSingleBuilder("--volumes-from", command.From),
 		NewSingleBuilder("--link", command.Link),
 		NewSingleBuilder("-w", command.Directory),
 		NewEnvironmantBuilder(*command),
