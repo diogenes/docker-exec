@@ -62,26 +62,37 @@ In target directory create ".denv" file and add some command defenitions:
 
 ```yaml
 commands:
-  npm:
+  bundle: &base_cmd
     directory: "/vagrant"
-    image: "node"
-    args: "--rm -v /vagrant:/vagrant"
-  rails: &rails_development
+    image: "devcenter"
+    from: "bundles"
+    link: "postgresql:pg"
+    dns:
+      - 10.40.0.1
+    volumes:
+      - "/vagrant:/vagrant"
+  rake: &bundled
+    <<: *base_cmd
     prepend: "bundle exec"
-    directory: "/vagrant"
-    image: "ruby"
-    args: "--rm -v /vagrant:/vagrant"
-  rake:
-    <<: *rails_development
   rspec:
-    <<: *rails_development
+    <<: *bundled
+  pry:
+    <<: *bundled
+  rails: &rails
+    <<: *bundled
+    ports:
+      - "8080:8080"
+  unicorn:
+    <<: *rails
 ```
 Run `alias | grep docker` and you will see your aliases:
 ```bash
-npm='docker run -it --rm --rm -v /vagrant:/vagrant -w /vagrant node npm'
-rails='docker run -it --rm --rm -v /vagrant:/vagrant -w /vagrant ruby bundle exec rails'
-rake='docker run -it --rm --rm -v /vagrant:/vagrant -w /vagrant ruby bundle exec rake'
-rspec='docker run -it --rm --rm -v /vagrant:/vagrant -w /vagrant ruby bundle exec rspec'
+alias pry="docker run --rm -it -v /vagrant:/vagrant --dns 10.10.30.0 --link postgresql:pg -w /vagrant devcenter bundle exec pry";
+alias bundle="docker run --rm -it -v /vagrant:/vagrant --dns 10.10.30.0 --link postgresql:pg -w /vagrant devcenter bundle";
+alias rake="docker run --rm -it -v /vagrant:/vagrant --dns 10.10.30.0 --link postgresql:pg -w /vagrant devcenter bundle exec rake";
+alias unicorn="docker run --rm -it -p 8080:8080 -v /vagrant:/vagrant --dns 10.10.30.0 --link postgresql:pg -w /vagrant devcenter bundle exec unicorn";
+alias rspec="docker run --rm -it -v /vagrant:/vagrant --dns 10.10.30.0 --link postgresql:pg -w /vagrant devcenter bundle exec rspec";
+alias rails="docker run --rm -it -p 8080:8080 -v /vagrant:/vagrant --dns 10.10.30.0 --link postgresql:pg -w /vagrant devcenter bundle exec rails";
 ```
 
 Now you can run `npm --version`, `npm` runs inside new container and cleanup atfer run.
