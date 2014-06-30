@@ -34,7 +34,7 @@ func TestBuildFull(t *testing.T) {
 		Dns:       []string{"8.8.8.8"},
 		Env:       map[string]string{"USER": "Kirillov"},
 	}
-	expected_command := "docker run --rm -it -p 8080 -p 3000 -v /vagrant:/vagrant --from-image bundles --dns 8.8.8.8 --link postgresql -w /vagrant -e USER=Kirillov ruby bundle exec unicorn -E production"
+	expected_command := "docker run --rm -it -p 8080 -p 3000 -v /vagrant:/vagrant --volumes-from bundles --dns 8.8.8.8 --link postgresql -w /vagrant -e USER=Kirillov ruby bundle exec unicorn -E production"
 	real_command := NewAliasBuilder(&command).Build()
 	if expected_command != real_command {
 		t.Errorf("Unexpected value\n-o:%s\n-e:%s", expected_command, real_command)
