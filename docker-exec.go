@@ -11,6 +11,6 @@ func main() {
 	app.Name = "Docker Exec"
 	app.Author = "Alexander Kirillov"
 	app.Commands = CommandsCollection()
-	app.Version = "0.2.0"
+	app.Version = "0.3.0"
 	app.Run(os.Args)
 }

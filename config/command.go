@@ -6,9 +6,9 @@ type Command struct {
 	Prepend   string
 	Directory string
 	Image     string
-	Link      string
 	From      string
 	Args      string
+	Link      []string
 	Ports     []string
 	Volumes   []string
 	Dns       []string

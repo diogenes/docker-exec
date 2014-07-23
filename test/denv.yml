@@ -12,7 +12,8 @@ commands:
     ports:
       - 8080
       - 8081
-    link: "postgresql:db"
+    link:
+      - "postgresql:db"
     from: "bundles"
     env:
       USER: Kirillov

@@ -66,7 +66,8 @@ commands:
     directory: "/vagrant"
     image: "devcenter"
     from: "bundles"
-    link: "postgresql:pg"
+    link:
+      - "postgresql:pg"
     dns:
       - 10.40.0.1
     volumes:

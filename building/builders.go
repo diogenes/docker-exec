@@ -23,8 +23,8 @@ func NewAliasBuilder(command *config.Command) *AliasBuilder {
 		NewListBuilder("-p", command.Ports),
 		NewListBuilder("-v", command.Volumes),
 		NewListBuilder("--dns", command.Dns),
+		NewListBuilder("--link", command.Link),
 		NewSingleBuilder("--volumes-from", command.From),
-		NewSingleBuilder("--link", command.Link),
 		NewSingleBuilder("-w", command.Directory),
 		NewEnvironmantBuilder(*command),
 	}
